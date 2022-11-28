@@ -24,4 +24,6 @@ and then thecreatorId is fetched from the user.Then we have a contoller that can
 (getNotes) that fetch the notes from the database to the app using a GET method (http://localhost:8080/note/notes) and for a single note (getNote) using a GET method
 (http://localhost:8080/note/note/:noteId).Also a note can be edited using the controller (updateCategory) using a PUT methond (http://localhost:8080/category/category/:categoryId)
 and we can also delete a note using (deleteNote) using a DELETE method (http://localhost:8080/note/note/:noteId).
+Every notes can have hashtags and we use a function called findTags that can find all the words after a "#" and filter it so that we can have a array of all the words.Then we use another 
+function in the app.js called searchTags that retrieve all the note that have the word in the search bar.
 
