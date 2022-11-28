@@ -1,0 +1,27 @@
+This project is a note taking app using node.js and mongodb wich can interact with a user on different levels like creating a user, category and notes.
+The User can sign in and then get access to all his notes and categories in a private way.He will be authenticated so that there is duplicate emails on the app by using custom
+authentication function and the express-validator npm.When the User is logged in he can use CRUD operations to perform different operations.
+
+The app.js is the starting point of the project where we connect with a nosql database using mongodb on the port(8080), 
+all the connections are done using packages, routes,models and controllers.
+
+All the routes are authenticated using a isAuth middleware found in the isAuth.js file that require a jsonwebtoken to be authenticated and that can prevent hacking and
+duplicating the website informations. And it make sure that only the user who created the category or the note can edit and delete it.
+
+Starting with the authentication, we use a signup controller using a PUT method that get 3 fields(email, password, name) that are stored in the auth model.Then we have a login function that 
+use a POST method and only get an email and a password and allow the user to access his notes. The password is hashed using the bcrypt package for security and confidentility purposes.
+When logged in a token is generated that last for 1h and then expire that allow the user to be authenticated in the isAuth file for this duration.
+
+A user should create a category first before creating any note using a POST request (http://localhost:8080/category/category) and requires a ("title") and then the
+creatorId is fetched from the user.Then we a contoller that can get all the categories (getCategories) that fetch the categories
+from the database to the app using a GET method (http://localhost:8080/category/categories) and for a single category (getCategory) using a GET method
+(http://localhost:8080/category/category/:categoryId).Also a category can be edited using the controller (updateCategory) using a PUT methond (http://localhost:8080/category/category/:categoryId)
+and we can also delete a category using (deleteCategory) using a DELETE method (http://localhost:8080/category/category/:categoryId).
+
+After creating a category a user can then create notes in this given category also using CRUD methods. He can create a note first  using a POST request 
+(http://localhost:8080/note/note) and requires a ("title", "content") and a date is automaticly added so that we can sort the notes inside the category using the .sort function in the database
+and then thecreatorId is fetched from the user.Then we have a contoller that can get all the notes 
+(getNotes) that fetch the notes from the database to the app using a GET method (http://localhost:8080/note/notes) and for a single note (getNote) using a GET method
+(http://localhost:8080/note/note/:noteId).Also a note can be edited using the controller (updateCategory) using a PUT methond (http://localhost:8080/category/category/:categoryId)
+and we can also delete a note using (deleteNote) using a DELETE method (http://localhost:8080/note/note/:noteId).
+
